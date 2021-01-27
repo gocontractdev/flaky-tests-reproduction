@@ -32,3 +32,12 @@ Link to Explination Video: https://2020.msrconf.org/details/msr-2020-papers/43/W
  
 Why? (Why did I discontinue the previous paper):
 Unfortunately, even-though the paper has the data publicly available and the process is explained throughly; it does not have the source codes available and as a result the re-production of it is out of the scope of this course. 
+
+
+# Installation:
+
+0- Activate the environment
+source ez_env/bin/activate
+
+// to exit always
+deactivate
