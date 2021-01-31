@@ -5,6 +5,9 @@ Division of Labor:
 This re-creation work has been handled by Amir Reza Javaher Dashti
 under supervision of Professor Ralf Lämmel.
 
+
+---
+
 #### Followings are some general notes and practices followed during this work:
 
 1- Use of Virtual Environment:
@@ -19,6 +22,13 @@ The whole original work is poorly organized. It makes it difficult to locate whe
  organizing the repository was a challenge of its own.
 
 3- Dealing with lack of 1 team member:
+
+I originally thought that I would be able to do the work with a teammate who maybe could help in the execution of the tests and
+in creating the charts however since it is not the case I had to reduce the number of projects tested and the re-execution counts.
+
+<br/>
+----
+<br/>
 
 ⚠ (Potential)️ Project Weakness:
 
