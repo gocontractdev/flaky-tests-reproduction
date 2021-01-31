@@ -67,6 +67,8 @@ Please refer to
 Hardware:
 
 Software:
+- Base ZSH bash (or equivalent)
+
 - Python 3.8 or above (or use Conda)
 
 - Open Source Machine Learning Software WEKA (used for algorithms: : Random Forest, Decision Tree, Naive Bayes,
@@ -122,11 +124,18 @@ Please refer to
 ## Extra:
 #### A) How to start?
 
+If you have a compatible extended shell simply running the 'initialization' file will execute 
+everything necessary for this project. From there follow the steps console asks (it automatically sets the right environment):
 ```shell
-# Activate the environment
-source ez_env/bin/activate
+cd /process
+zsh ./initialization.sh
 
-pip install --upgrade pip
+
+
+
+# You can activate the environment if you want but the initialization does that Automatically
+
+source ez_env/bin/activate
 
 # to exit simply type
 deactivate
