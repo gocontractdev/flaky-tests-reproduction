@@ -47,7 +47,7 @@ The general re-creation work done by us goes through the following steps:
 4- Correlation and Delta: We will make an iPython for comparisons, final reports and summaries.
 
 
-✅ How to Validate the works?
+ ✅  How to Validate the works?
 
 ## Requirements:
 
@@ -64,15 +64,15 @@ MacOs Catalina, 16 GB RAM, 2.6 GHZ Intel's Core-i7 x 6 CORES
 Following is the general description of data types along with the schema overview:
 
 
-##🔥 Delta:
+## 🔥 Delta:
 
-### A) about Process:
+#### A) about Process:
 
-### B) about Data:
+#### B) about Data:
 
 
 ## Extra:
-### A) Installation:
+#### A) Installation:
 
 0- Activate the environment
 source ez_env/bin/activate
@@ -80,4 +80,4 @@ source ez_env/bin/activate
 // to exit always
 deactivate
 
-### B) Known Issues:
+#### B) Known Issues:
