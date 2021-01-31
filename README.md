@@ -3,6 +3,8 @@
 This is a reproduction efforts to re-create the original paper: "What is the Vocabulary of Flaky Tests?" as part of the 
 study program "Mining Software Repositories (MSR 2020-21)" provided by SoftLang Team at University of Koblenz-Landau.
 
+* Important: Please refer to the section: "Extra: A) How to start?" to see how to start the project.
+
 ## MetaData
 This paper is inspired by the 2020 Paper What is the Vocabulary of Flaky Tests?" written by: Gustavo Pinto and
                Breno Miranda and
@@ -72,7 +74,7 @@ Following is the general description of data types along with the schema overvie
 
 
 ## Extra:
-#### A) Installation:
+#### A) How to start?
 
 0- Activate the environment
 source ez_env/bin/activate
