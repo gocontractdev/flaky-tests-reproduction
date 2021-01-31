@@ -26,11 +26,11 @@ The whole original work is poorly organized. It makes it difficult to locate whe
 I originally thought that I would be able to do the work with a teammate who maybe could help in the execution of the tests and
 in creating the charts however since it is not the case I had to reduce the number of projects tested and the re-execution counts.
 
-<br/>
-----
-<br/>
+<br/><br/>
 
-⚠ (Potential)️ Project Weakness:
+------------
+
+⚠ (Potential)️ Project Weaknesses:
 
 1- The original work uses 80-20 percent training and evaluation shares instead of split rather accepted x-fold cross-validation approach. Explained as possibly problematic due to introducing multiple models.
 
