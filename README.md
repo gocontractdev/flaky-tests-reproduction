@@ -7,7 +7,7 @@ study program "Mining Software Repositories (MSR 2020-21)" provided by SoftLang 
 
 * Important 2: The diagrams are created or re-created by me however they might be subject to copy-right so use or adopt with your own risk.
 
-## MetaData
+## MetaData:
 This paper is inspired by the 2020 Paper What is the Vocabulary of Flaky Tests?" written by: Gustavo Pinto and
                Breno Miranda and
                Supun Dissanayake and
@@ -57,6 +57,9 @@ The general re-creation work done by us goes through the following steps:
 4- Correlation and Delta: We will make an iPython for comparisons, final reports and summaries.
 
 
+Please refer to
+[Process iPython](/process/process.ipynb) file to see the explanations about the project's data.
+
  ✅  How to Validate the works?
 
 ## Requirements:
@@ -100,10 +103,16 @@ Following is the general description of data types along with the schema overvie
 >  <sup>Note: This part is adopted (in simple words) from the paper. </sup>
 
 
+Please refer to
+[Data iPython](/data/data.ipynb) file to see the explanations about the project's data.
+
 
 
 
 ## 🔥 Delta:
+
+Please refer to
+[Delta iPython](/process/delta.ipynb) file to see the explanations about the project's delta.
 
 #### A) about Process:
 
@@ -113,10 +122,17 @@ Following is the general description of data types along with the schema overvie
 ## Extra:
 #### A) How to start?
 
-0- Activate the environment
+```shell
+# Activate the environment
 source ez_env/bin/activate
 
-// to exit always
+# to exit simply type
 deactivate
+```
+
 
 #### B) Known Issues:
+
+
+
+Further potential issues are explained in Project management summary.
