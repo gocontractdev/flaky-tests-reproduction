@@ -65,7 +65,11 @@ Following is the general description of data types along with the schema overvie
 
 
 ##🔥 Delta:
- 
+
+### A) about Process:
+
+### B) about Data:
+
 
 ## Extra:
 ### A) Installation:
