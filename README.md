@@ -45,11 +45,20 @@ The general re-creation work done by us goes through the following steps:
 ?- Evaluation: The code that generated their evaluations seem to not be included — we will investigate this.
 
 4- Correlation and Delta: We will make an iPython for comparisons, final reports and summaries.
- 
+
+
+✅ How to Validate the works?
 
 ## Requirements:
 
-PENDING
+Hardware:
+
+Software:
+- Python 3.8
+
+// My Machine:
+
+MacOs Catalina, 16 GB RAM, 2.6 GHZ Intel's Core-i7 x 6 CORES
 
 ## Data:
 Following is the general description of data types along with the schema overview:
