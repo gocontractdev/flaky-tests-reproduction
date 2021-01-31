@@ -28,11 +28,15 @@ Conference Link: https://2020.msrconf.org/details/msr-2020-papers/43/What-is-the
 
 GitHub Link: https://github.com/damorimRG/msr4flakiness
 
-Research Questions -- grabbed from the paper:
-RQ1. How prevalent and elusive are flaky tests?
-RQ2. How accurately can we predict test flakiness based on source code identifiers in the test cases?
-RQ3. What value do different features add to the classifier?
-RQ4. Which test code identifiers are most strongly associated with test flakiness?
+Research Questions (*** adopted from the paper):
+
+RQ1. How frequently do flaky tests happen and how prevalent they are?
+
+RQ2. What is the precision of predicting test flakiness using tokens collected from the source code?
+
+RQ3. What is the importance of different features within the model?
+
+RQ4. Find the tokens that are highly connected to flakiness of a tests.
 
 ## Process:
 The general re-creation work done by us goes through the following steps:
@@ -94,8 +98,6 @@ Following is the general description of data types along with the schema overvie
 >For further on DeFlaker: http://www.deflaker.org/icsecomp/
 > 
 >  <sup>Note: This part is adopted (in simple words) from the paper. </sup>
-
-
 
 
 

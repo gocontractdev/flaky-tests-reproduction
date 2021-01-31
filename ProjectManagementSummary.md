@@ -19,4 +19,9 @@ The whole original work is poorly organized. It makes it difficult to locate whe
  organizing the repository was a challenge of its own.
 
 3- Dealing with lack of 1 team member:
-~~~~
+
+⚠ (Potential)️ Project Weakness:
+
+1- The original work uses 80-20 percent training and evaluation shares instead of split rather accepted x-fold cross-validation approach. Explained as possibly problematic due to introducing multiple models.
+
+2- Does not justify nor verify whether 100 runs is an optimal (local optimal or average) count for reliably predicting flakiness.
