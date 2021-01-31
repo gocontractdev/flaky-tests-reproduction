@@ -3,7 +3,9 @@
 This is a reproduction efforts to re-create the original paper: "What is the Vocabulary of Flaky Tests?" as part of the 
 study program "Mining Software Repositories (MSR 2020-21)" provided by SoftLang Team at University of Koblenz-Landau.
 
-* Important: Please refer to the section: "Extra: A) How to start?" to see how to start the project.
+* Important 1: Please refer to the section: "Extra: A) How to start?" to see how to start the project.
+
+* Important 2: The diagrams are created or re-created by me however they might be subject to copy-right so use or adopt with your own risk.
 
 ## MetaData
 This paper is inspired by the 2020 Paper What is the Vocabulary of Flaky Tests?" written by: Gustavo Pinto and
@@ -34,6 +36,8 @@ RQ4. Which test code identifiers are most strongly associated with test flakines
 
 ## Process:
 The general re-creation work done by us goes through the following steps:
+
+![Alt text](doc/diagrams/general-procedure.png?raw=true "General Procedure")
 
 
 0- Re-organize: the orginal repository is very poorly organized the data and codes are mixed we will reorganize it.

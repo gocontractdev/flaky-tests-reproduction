@@ -14,4 +14,7 @@ we have also continued to use Python. Hence, we have taken advantage of Python's
 the separation between the actual runtime system of the users and the requirements needed to run this project.
 I have also committed the environment for the ease of use.
 
-2- Dealing with lack of 1 team member:
+2- Organization issue:
+
+
+3- Dealing with lack of 1 team member:
