@@ -15,6 +15,8 @@ the separation between the actual runtime system of the users and the requiremen
 I have also committed the environment for the ease of use.
 
 2- Organization issue:
-
+The whole original work is poorly organized. It makes it difficult to locate where each file, folder or output is located; thus, just
+ organizing the repository was a challenge of its own.
 
 3- Dealing with lack of 1 team member:
+~~~~

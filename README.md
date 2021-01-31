@@ -60,7 +60,10 @@ The general re-creation work done by us goes through the following steps:
 Hardware:
 
 Software:
-- Python 3.8
+- Python 3.8 or above (or use Conda)
+
+- Open Source Machine Learning Software WEKA (used for algorithms: : Random Forest, Decision Tree, Naive Bayes,
+Support Vector Machine, and Nearest Neighbour)
 
 // My Machine:
 
@@ -68,6 +71,34 @@ MacOs Catalina, 16 GB RAM, 2.6 GHZ Intel's Core-i7 x 6 CORES
 
 ## Data:
 Following is the general description of data types along with the schema overview:
+
+---
+- Basics:
+
+> Positive === Flaky Test
+> 
+> Negative === Estimated Flaky Test (a test that is not proven to be flaky so far)
+
+- Initial Dataset:
+
+#### The main dataset that has been used for this work is called "DeFlaker".
+
+
+> The original paper faces the following issues using the dataset:
+>
+> 1- The dataset does not list the non-flaky tests but since it was needed for their model training; they ran the tests multiple times to find possible candidates.
+>
+> 2- One of the projects fails in build so they use 24 out of 25 Java projects provided by the dataset.
+>
+>
+>For further on DeFlaker: http://www.deflaker.org/icsecomp/
+> 
+>  <sup>Note: This part is adopted (in simple words) from the paper. </sup>
+
+
+
+
+
 
 
 ## 🔥 Delta:
