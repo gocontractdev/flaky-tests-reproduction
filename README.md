@@ -126,6 +126,8 @@ Please refer to
 # Activate the environment
 source ez_env/bin/activate
 
+pip install --upgrade pip
+
 # to exit simply type
 deactivate
 ```
