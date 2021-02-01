@@ -133,6 +133,8 @@ everything necessary for this project. From there follow the steps console asks 
 # to initialize and run everything
 zsh ./process/initialization.sh
 
+# if pycurl failed for you on MAC -- couldn't find any other solution 
+xcode-select --install
 
 
 # You can activate the environment if you want but the initialization does that Automatically
