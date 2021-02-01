@@ -126,24 +126,24 @@ Please refer to
 
 If you have a compatible extended shell simply running the 'initialization' file will execute 
 everything necessary for this project. From there follow the steps console asks (it automatically sets the right environment):
-```shell
-cd /process
-zsh ./initialization.sh
 
+- Important 1: The password is your machine's password (needed for Git Clone).
+
+```shell
+# to initialize and run everything
+zsh ./process/initialization.sh
 
 
 
 # You can activate the environment if you want but the initialization does that Automatically
-
 source ez_env/bin/activate
-
-# to exit simply type
+# to exit env simply type
 deactivate
 ```
 
 
 #### B) Known Issues:
 
-
+None.
 
 Further potential issues are explained in Project management summary.
