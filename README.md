@@ -144,6 +144,7 @@ deactivate
 
 #### B) Known Issues:
 
-None.
+1- The environment which comes along with the project is broken.
+It fails in installation of 'pyCurl' depending on you O.S. and your SSL settings it may happen or not happen.
 
 Further potential issues are explained in Project management summary.

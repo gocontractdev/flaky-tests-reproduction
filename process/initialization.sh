@@ -1,3 +1,5 @@
+# This script will only work if you run it from the main not within the process folder
+
 # reactivate the env (if forgotten)
 deactivate
 source venv/ez_env/bin/activate
@@ -12,6 +14,7 @@ echo 'DONE'
 
 if [ -d "data/input/original_repo/" ]; then
     echo "Already exists -- skipped the cloning..."
+    # just run the main python file
 else
   echo "Cloning the original repository; Please Wait..."
   cd  data/input
@@ -20,7 +23,7 @@ else
   sudo chmod -R g+rw "original_repo/"
   cd "original_repo/"
   git clone https://github.com/damorimRG/msr4flakiness.git
-  # back to the process and run the main python file
+  # back to the process to run the main python file
   cd ../../../
 fi
 
