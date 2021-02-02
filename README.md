@@ -3,19 +3,19 @@
 This is a reproduction efforts to re-create the original paper: "What is the Vocabulary of Flaky Tests?" as part of the 
 study program "Mining Software Repositories (MSR 2020-21)" provided by SoftLang Team at University of Koblenz-Landau.
 
-* Important 1: Please refer to the section: "Extra: A) How to start?" to see how to start the project.
-
-* Important 2: The diagrams are created or re-created by me however they might be subject to copy-right so use or adopt with your own risk.
+* Important: Please refer to the section: "Extra: A) How to start?" to see how to start the project.
 
 ## MetaData:
-This paper is inspired by the 2020 Paper What is the Vocabulary of Flaky Tests?" written by: Gustavo Pinto and
+This repository describes the recreation of 2020 Paper "What is the Vocabulary of Flaky Tests?" written by: Gustavo Pinto and
                Breno Miranda and
                Supun Dissanayake and
                Marcelo d'Amorim and
                Christoph Treude and
                Antonia Bertolino.
-Here, we simply try to re-create what the original work has achieved to re-confirm and evaludate the challenges invloved in
-making or verification of a MSR paper. The flaky tests are tests that pass and fail periodically without any code changes. 
+
+
+Here, we try to re-create what the original work has achieved to re-confirm and evaluate the challenges involved in
+making or verification of an MSR paper. The flaky tests are tests that pass and fail periodically without any code changes. 
 There might be different underlying reasons causing such tests to occur. This paper continues investigations of 2 existing papers.
 They used the base dataset of manually tracked flaky tests and automated the suggested framework to find vocabulary (simply tokens and keywords) that relate to flakiness using NLP. 
 
@@ -28,6 +28,7 @@ Conference Link: https://2020.msrconf.org/details/msr-2020-papers/43/What-is-the
 
 GitHub Link: https://github.com/damorimRG/msr4flakiness
 
+-----------------
 Research Questions (*** adopted from the paper):
 
 RQ1. How frequently do flaky tests happen and how prevalent they are?
