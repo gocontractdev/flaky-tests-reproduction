@@ -66,11 +66,13 @@ Please refer to
 ## Requirements:
 
 Minimum Hardware:
-- Intel Core-i7 x ,2.2 GHZ 6 Cores  
-- RAM 8 GB (I recommend at least 16 GB)
-
-Software:
 - MacOs Catalina or Linux Distributions
+  
+- Intel Core-i7 x ,2.2 GHZ 6 Cores  
+
+- RAM 8 GB (I recommend at least 16 GB)
+  
+Software:
   
 - Vanilla ZSH bash (or equivalent)
 
