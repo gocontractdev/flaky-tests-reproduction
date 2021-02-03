@@ -25,7 +25,7 @@ def main():
     shutil.copy(original_repo_path + '/deflaker/historical_projects.csv',
                 input_path + '/historical_projects_copied.csv')
     shutil.copy(original_repo_path + '/deflaker/historical_rerun_flaky_tests.csv',
-                input_path + '/historical_projects_copied.csv')
+                input_path + '/historical_rerun_flaky_tests.csv')
 
     print('input is now populated ✔✔✔')
 
@@ -37,11 +37,11 @@ def main():
     else:
         ez_mode()
 
-    # Step 2 : Run the tokenization
+    # Step 2 :
+    # Run the tokenization
     fixed_find_potential_features()
-
-    # Step 3 :  frequency calculation
-
+    # frequency calculation
+    frequencies()
     #
 
 
@@ -60,7 +60,7 @@ def heavy_mode():
     print('⚠️ You have chosen heavy mode -- This might take a while...')
 
 
-# this code is from original repository -> but the code was broken so I had to fix it
+# ❌ this code is from original repository -> but the code was broken so I had to fix it
 def fixed_find_potential_features():
     sys.path.append(original_repo_path + '/deflaker')
     f = __import__('find_potential_features')
@@ -81,9 +81,39 @@ def fixed_find_potential_features():
     word_frequency = f.compute_frequency(test_words)
     sorted_word_frequency = sorted(word_frequency.items(), key=lambda x: x[1], reverse=True)
 
-    with open(data_path + '/output/frequencies_raw.csv', 'w', newline='') as file:
+    with open(data_path + '/output/features_raw.csv', 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["word", "count"])
+        writer.writerow(["token", "count"])
+        for elem in sorted_word_frequency:
+            writer.writerow([elem[0], elem[1]])
+
+# ❌ this is not my code -> it is modified version of original
+def frequencies():
+    sys.path.append(original_repo_path + '/deflaker')
+    f = __import__('frequency_potential_features')
+    coverage_matrix = {}
+    pathname = temp_path + '/samples_flaky/test_tokens'
+    for filename in glob.glob(pathname + "/*"):
+        with open(filename, 'r') as file:
+            presence = set()
+            data = file.read().replace('\n', '')
+            for feature in f.features:
+                if f.re.search(feature, data, f.re.IGNORECASE):
+                    presence.add(feature)
+                    if f.word_frequency.get(feature) == None:
+                        f.word_frequency[feature] = 1
+                    else:
+                        tmp = f.word_frequency[feature]
+                        f.word_frequency[feature] = tmp + 1
+            coverage_matrix[filename] = presence
+            tmp = [1 if x in presence else 0 for x in f.features]
+            print(tmp)
+    sorted_word_frequency = sorted(f.word_frequency.items(), key=lambda x: x[1], reverse=True)
+    # save the output
+
+    with open(data_path + '/output/features_frequency.csv', 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["token", "count"])
         for elem in sorted_word_frequency:
             writer.writerow([elem[0], elem[1]])
 
