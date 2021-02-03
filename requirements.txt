@@ -64,3 +64,4 @@ pycurl
 six
 javalang
 pandas
+python-Levenshtein

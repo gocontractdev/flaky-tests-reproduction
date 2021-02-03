@@ -147,8 +147,7 @@ C) Output:
 ## 🔥 Delta:
 
 Please refer to
-[Delta iPython](/process/delta.ipynb) file to see the explanations about the project's delta.
-
+[Delta iPython](/process/delta.ipynb) file to see the explanations about the project's delta. Here is the summary:
 #### A) about Process:
 
 #### B) about Data:
