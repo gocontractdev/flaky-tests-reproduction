@@ -81,7 +81,7 @@ def fixed_find_potential_features():
     word_frequency = f.compute_frequency(test_words)
     sorted_word_frequency = sorted(word_frequency.items(), key=lambda x: x[1], reverse=True)
 
-    with open(data_path + '/output/frequencies.csv', 'w', newline='') as file:
+    with open(data_path + '/output/frequencies_raw.csv', 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(["word", "count"])
         for elem in sorted_word_frequency:
