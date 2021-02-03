@@ -39,30 +39,6 @@ RQ3. What is the importance of different features within the model?
 
 RQ4. Find the tokens that are highly connected to flakiness of a tests.
 
-## Process:
-The general re-creation work done by us goes through the following steps:
-
-![Alt text](doc/diagrams/general-procedure.png?raw=true "General Procedure")
-
-
-0- Re-organize: the orginal repository is very poorly organized the data and codes are mixed we will reorganize it.
-
-1- Detection: flaky detection uses a base dataset to derive features of flaky and non-flaky tests. We check the csv and txt files here and try to recreate them.
-
-2- Identification: Use NLP approaches to find tokens prevalent in flaky tests and make a classifier.
-
-3- Discovery: Fetch and go through Github to see if we can identify flakiness using the selected features — We will recreate this part for only a few repositories.
-
-?- Evaluation: The code that generated their evaluations seem to not be included — we will investigate this.
-
-4- Correlation and Delta: We will make an iPython for comparisons, final reports and summaries.
-
-
-Please refer to
-[Process iPython](/process/process.ipynb) file to see the explanations about the project's data.
-
- ✅  How to Validate the works?
-
 ## Requirements:
 
 Minimum Hardware:
@@ -82,6 +58,58 @@ Software:
   
 - Extra: Open Source Machine Learning Software WEKA (used for algorithms: : Random Forest, Decision Tree, Naive Bayes,
 Support Vector Machine, and Nearest Neighbour)
+
+## Process:
+The general re-creation work done by us goes through the following steps:
+
+![Alt text](doc/diagrams/general-procedure.png?raw=true "General Procedure")
+
+0- Re-organize: the original repository is very poorly organized the data and codes are mixed we will automatically clone and reorganize it in right places.
+
+1- Detection: Depending on your decision can prepare flaky / non-flaky samples:
+
+> e - EASY mode will use already processed initial data.
+> 
+> h - HEAVY mode will fully re-calculate flaky and non-flaky samples.
+
+2- Identification (tokenization): Uses NLP approaches to find tokens and candidate features.
+
+3- Discovery: Finalizes the classifier model and produces the outputs.
+
+4- Comparison: Open-ended process to check and verify the output.
+
+
+If you have a compatible extended shell simply running the 'initialization' file will execute 
+everything necessary for this project. From there follow the steps console asks (it automatically sets the right environment and installs necessary packages):
+
+
+```shell
+# to initialize and run everything
+zsh ./process/initialization.sh
+
+# it will prompt and asks question if needed
+
+# Please choose the mode? [Easy Mode (e or ez) | Heavy Mode (h or hv)]
+
+> h # if you want full process
+> e # if you want demo process
+
+# the process might take few minutes
+```
+
+- Important 1: The password is your machine's password (needed for Git Clone).
+
+- Important 2: Refer to the extra section if something did not work.
+
+
+  Please refer to
+[Process iPython](/process/process.ipynb) file to see the full explanations about the process.
+
+
+ ✅  How to Validate the works?
+--------------------
+
+
 
 ## Data:
 Following is the general description of data types along with the schema overview:
@@ -127,23 +155,9 @@ Please refer to
 
 
 ## Extra:
-#### A) How to start?
-
-If you have a compatible extended shell simply running the 'initialization' file will execute 
-everything necessary for this project. From there follow the steps console asks (it automatically sets the right environment):
-
-- Important 1: The password is your machine's password (needed for Git Clone).
+#### A) What should I do if installing pyCurl failed?
 
 ```shell
-# to initialize and run everything -- it will prompt and asks question if needed
-zsh ./process/initialization.sh
-
-# Please choose the mode? [Easy Mode (e or ez) | Heavy Mode (h or hv)]
-> h # if you want full process
-> e # if you want demo process
-
-# extra -- only try if something failed
-
 # if pycurl failed for you on MAC -- couldn't find any other solution 
 xcode-select --install
 
@@ -153,10 +167,10 @@ source ez_env/bin/activate
 deactivate
 ```
 
-
 #### B) Known Issues:
 
 1- The environment which comes along with the project is broken.
 It fails in installation of 'pyCurl' depending on you O.S. and your SSL settings it may happen or not happen.
 
-Further potential issues are explained in Project management summary.
+2- Some python files do not actually work. I have modified them to achieve the goals; further on this is explained in 
+[Process iPython](/process/process.ipynb).
