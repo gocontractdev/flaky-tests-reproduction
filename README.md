@@ -65,19 +65,21 @@ Please refer to
 
 ## Requirements:
 
-Hardware:
+Minimum Hardware:
+- Intel Core-i7 x ,2.2 GHZ 6 Cores  
+- RAM 8 GB (I recommend at least 16 GB)
 
 Software:
-- Base ZSH bash (or equivalent)
+- MacOs Catalina or Linux Distributions
+  
+- Vanilla ZSH bash (or equivalent)
 
-- Python 3.8 or above (or use Conda)
+- Python 3.8 or above (use Conda)
 
-- Open Source Machine Learning Software WEKA (used for algorithms: : Random Forest, Decision Tree, Naive Bayes,
+- Docker (already running)
+  
+- Extra: Open Source Machine Learning Software WEKA (used for algorithms: : Random Forest, Decision Tree, Naive Bayes,
 Support Vector Machine, and Nearest Neighbour)
-
-// My Machine:
-
-MacOs Catalina, 16 GB RAM, 2.6 GHZ Intel's Core-i7 x 6 CORES
 
 ## Data:
 Following is the general description of data types along with the schema overview:
@@ -131,12 +133,17 @@ everything necessary for this project. From there follow the steps console asks 
 - Important 1: The password is your machine's password (needed for Git Clone).
 
 ```shell
-# to initialize and run everything
+# to initialize and run everything -- it will prompt and asks question if needed
 zsh ./process/initialization.sh
+
+# Please choose the mode? [Easy Mode (e or ez) | Heavy Mode (h or hv)]
+> h # if you want full process
+> e # if you want demo process
+
+# extra -- only try if something failed
 
 # if pycurl failed for you on MAC -- couldn't find any other solution 
 xcode-select --install
-
 
 # You can activate the environment if you want but the initialization does that Automatically
 source ez_env/bin/activate

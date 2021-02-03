@@ -1,2 +1,6 @@
+data/temp/
+data/temp/*
 data/input/original_repo/
+data/input/original_repo/*
 process/artifacts/
+process/artifacts/*
