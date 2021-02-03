@@ -1,13 +1,10 @@
-import shutil
 import glob
-import os
-from nltk import sent_tokenize, word_tokenize, PorterStemmer, download
-from nltk.corpus import stopwords
-import collections
-from operator import itemgetter
-from wordsegment import load, segment
-import sys
+import subprocess
 import csv
+import os
+import sys
+import re
+import shutil
 
 # base paths
 # Warning: Do not move any files the whole thing breaks apart
@@ -26,6 +23,8 @@ def main():
                 input_path + '/historical_projects_copied.csv')
     shutil.copy(original_repo_path + '/deflaker/historical_rerun_flaky_tests.csv',
                 input_path + '/historical_rerun_flaky_tests.csv')
+    shutil.copy(original_repo_path + '/idflakies/list-flaky.csv',
+                input_path + '/list-flaky.csv')
 
     print('input is now populated ✔✔✔')
 
@@ -42,14 +41,12 @@ def main():
     fixed_find_potential_features()
     # frequency calculation
     frequencies()
-    #
 
 
 def ez_mode():
     print('😳 Ease (EZ) mode skips heavy processes and simplifies steps for quick validation ...')
 
     shutil.rmtree(temp_path)
-
     # copy the samples and re-runs
     # shutil.copytree(original_repo_path + '/deflaker/reruns', temp_path + '/reruns')
     # shutil.copytree(original_repo_path + '/deflaker/samples_nonflaky', temp_path + '/samples_nonflaky')
@@ -58,6 +55,9 @@ def ez_mode():
 
 def heavy_mode():
     print('⚠️ You have chosen heavy mode -- This might take a while...')
+
+    shutil.rmtree(temp_path)
+    mine_all_repos()
 
 
 # ❌ this code is from original repository -> but the code was broken so I had to fix it
@@ -86,6 +86,7 @@ def fixed_find_potential_features():
         writer.writerow(["token", "count"])
         for elem in sorted_word_frequency:
             writer.writerow([elem[0], elem[1]])
+
 
 # ❌ this is not my code -> it is modified version of original
 def frequencies():
@@ -116,6 +117,77 @@ def frequencies():
         writer.writerow(["token", "count"])
         for elem in sorted_word_frequency:
             writer.writerow([elem[0], elem[1]])
+
+
+# ❌ This code is not mine -- I have only fixed it
+def mine_all_repos():
+    print('⚠️ WARNING: Do not stop the process untill this step is finished')
+    basedir = os.getcwd()
+    urls = set()
+    with open(input_path + '/list-flaky.csv') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+
+        usage_dir = None
+        for row in csv_reader:
+            if (row["Category"] == "OD"):
+                continue
+            url = row["URL"]
+            if (not url in urls):
+
+                if (not usage_dir is None):
+                    os.chdir("..")
+                    if (os.path.exists(usage_dir)):
+                        shutil.rmtree(usage_dir, ignore_errors=True)
+                parts = url.split("/")
+                usage_dir = parts[len(parts) - 1]
+                if usage_dir == None:
+                    raise Exception("fatal error")
+                if (os.path.exists(usage_dir)):
+                    pass
+                # clone the repository
+                if (not os.path.exists(usage_dir)):
+                    print("cloning project " + url)
+                    myprocess = subprocess.Popen(['git', 'clone', url],
+                                                 stdout=subprocess.PIPE,
+                                                 stderr=subprocess.STDOUT)
+                    stdout, stderr = myprocess.communicate()
+                    sha = row["SHA"]
+                    print("checking out revision {}".format(sha))
+                    myprocess = subprocess.Popen(['git', 'checkout', sha],
+                                                 stdout=subprocess.PIPE,
+                                                 stderr=subprocess.STDOUT)
+                    stdout, stderr = myprocess.communicate()
+                os.chdir(usage_dir)
+                urls.add(url)
+            testcase = row["Test Name"]
+            testcase = testcase.split()[0]
+            parts = testcase.split(".")
+            testfile = parts[len(parts) - 2]
+
+            myprocess = subprocess.Popen(['find', '.', '-name', "{}.*".format(testfile)],
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.STDOUT)
+            stdout, stderr = myprocess.communicate()
+            result = stdout.decode("utf-8")
+
+            if (len(stdout) == 0):
+                print("  empty file {}:{}:{}".format(usage_dir, sha, testfile))
+                continue
+            if (len(re.findall('un', result)) == 1):
+                path_to_testfile = result.strip(" \n")
+            else:
+                path_to_testfile = result.split("\n")[0]
+
+            test_folder = "../" + temp_path + "/test_files"
+
+            from pathlib import Path
+            Path(test_folder).mkdir(parents=True, exist_ok=True)
+            print(testfile)
+            shutil.copy(path_to_testfile, test_folder + '/' + testcase)
+
+        os.chdir(basedir)
+        if (os.path.exists(usage_dir)):
+            shutil.rmtree(usage_dir, ignore_errors=True)
 
 
 if __name__ == '__main__':
