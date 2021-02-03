@@ -97,13 +97,13 @@ zsh ./process/initialization.sh
 # the process might take few minutes
 ```
 
+👉 Please refer to
+[Process iPython](/process/process.ipynb) file to see the full explanations about the process.
+
+
 - Important 1: The password is your machine's password (needed for Git Clone).
 
 - Important 2: Refer to the extra section if something did not work.
-
-
-  Please refer to
-[Process iPython](/process/process.ipynb) file to see the full explanations about the process.
 
 
  ✅  How to Validate the works?
@@ -137,11 +137,13 @@ Following is the general description of data types along with the schema overvie
 > 
 >  <sup>Note: This part is adopted (in simple words) from the paper. </sup>
 
+The structure of our data:
 
-Please refer to
-[Data iPython](/data/data.ipynb) file to see the explanations about the project's data.
+A) Input:
 
+B) Temp:
 
+C) Output:
 
 
 ## 🔥 Delta:
