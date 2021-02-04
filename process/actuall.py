@@ -1,11 +1,11 @@
 import glob
-import subprocess
 import csv
 import os
 import sys
 import re
 import shutil
 import subprocess
+from pathlib import Path
 
 # base paths
 # Warning: Do not move any files the whole thing breaks apart
@@ -16,6 +16,7 @@ temp_path = data_path + '/temp'
 original_repo_path = input_path + '/original_repo/msr4flakiness'
 test_folder = temp_path + "/test_files"
 test_cases_folder = temp_path + "/test_cases"
+test_tokens_folder = temp_path + "/samples_flaky/test_tokens"
 
 
 def main():
@@ -45,10 +46,15 @@ def main():
     # frequency calculation
     frequencies()
 
+    # Step 3: prepare full scan
+    print('This is now a full scan for lenvesthein distance calcualtion')
+
+    # Step 4:
+    print('🔥 Process is completed. Refer to Delta and Process jupyter files for details')
 
 def ez_mode():
     print('😳 Ease (EZ) mode skips heavy processes and simplifies steps for quick validation ...')
-    exit('222')
+    exit('temporarily off -- comment this')
     shutil.rmtree(temp_path)
     # copy the samples and re-runs
     # shutil.copytree(original_repo_path + '/deflaker/reruns', temp_path + '/reruns')
@@ -59,10 +65,10 @@ def ez_mode():
 def heavy_mode():
     print('⚠️ You have chosen heavy mode -- This might take a while...')
 
-    #shutil.rmtree(temp_path)
-    #mine_all_repos()  # this makes test cases
+    shutil.rmtree(temp_path)
+    mine_all_repos()  # this makes test cases
     separate_all_tests()
-
+    post_run_gen_tokens()
 
 # ❌ this code is from original repository -> but the code was broken so I had to fix it
 def fixed_find_potential_features():
@@ -182,7 +188,6 @@ def mine_all_repos():
             else:
                 path_to_testfile = result.split("\n")[0]
 
-            from pathlib import Path
             Path("../" + test_folder).mkdir(parents=True, exist_ok=True)
             print(testfile)
             shutil.copy(path_to_testfile, "../" + test_folder + '/' + testcase)
@@ -201,33 +206,55 @@ def separate_all_tests():
     os.system("cd process; docker-compose up -d")
 
     # build the main jar file
-    runnable_command = "java -jar " + '/utilities/vis_method/build/libs/vis_method.jar ' + filename + " " + testname
-    os.system("cd process; docker container exec -it my_little_alpine " + runnable_command + ";")
+    runnable_command = 'cd /utilities/vis_method ;  gradle clean; gradle jar;'
+    os.system("cd process; docker container exec -it my_little_alpine bash -c '" + runnable_command + "'")
 
     for filename in filenames:
         parts = filename.split(".")
         testname = parts[len(parts) - 1]
-        runnable_command = "java -jar " + '/utilities/vis_method/build/libs/vis_method.jar ' + filename + " "+ testname
-        os.system("cd process; docker container exec -it my_little_alpine " + runnable_command + ";")
 
-        exit('1111')
-        # myprocess = subprocess.Popen(
-        #    ['java', '-jar', original_repo_path + '/utils/vis_method/build/libs/vis_method.jar', filename, testname],
-        #    stdout=subprocess.PIPE,
-        #    stderr=subprocess.STDOUT)
-        # mbody, stderr = myprocess.communicate()
+        tempest_filename = filename.split('/', 1)[1]
+        runnable_command = " java -jar " + '/utilities/vis_method/build/libs/vis_method.jar ' +\
+                           tempest_filename + " " + testname
+        os.system("cd process; docker container exec -it my_little_alpine bash -c '" +
+                  runnable_command + "'" +
+                  ' > tempest.txt')
 
-        mbody = ''
-        parseError = b'com.github.javaparser.ParseProblemException' in mbody
-        # create a file with the test case
-        print('ss')
-        if not parseError and len(mbody) > 400:
-            with open(test_cases_folder + os.path.basename(filename), "wt+") as testfile:
-                print(mbody.decode("utf-8"))
-                testfile.write(mbody.decode("utf-8"))
-        else:
-            print(os.path.basename(filename))
+        Path(test_cases_folder).mkdir(parents=True, exist_ok=True)
+        shutil.copy('process/tempest.txt', test_cases_folder + '/' + testname)
 
+def post_run_gen_tokens():
+    # build vid_ids using gradle
+    # print('⛴ This part is handled virtually through docker again -- if it is running already it will fail...')
+    filenames = [f for f in glob.glob(test_cases_folder + "/*", recursive=False)]
+    # os.system("cd process; docker stop my_little_alpine")
+    # os.system("cd process; docker container rm my_little_alpine")
+    # os.system("cd process; docker-compose build")
+    # os.system("cd process; docker-compose up -d")
+
+    # build the main jar file
+    runnable_command = 'cd /utilities/vis_ids ;  gradle clean; gradle jar;'
+    os.system("cd process; docker container exec -it my_little_alpine bash -c '" + runnable_command + "'")
+
+    for filename in filenames:
+        parts = filename.split("/")
+        testname = parts[len(parts) - 1]
+
+        # does not produce what is expected
+        #runnable_command = " java -jar " + '/utilities/vis_ids/build/libs/vis_ids.jar/' + filename
+        #os.system("cd process; docker container exec -it my_little_alpine bash -c '" + runnable_command + "'")
+        data = ''
+        with open(filename, 'r') as file:
+            data = file.read().replace('\n', '')
+
+        words = data.split(" ")
+        with open('process/temper.txt', 'w') as f:
+            for word in words:
+                print(word)
+                f.write("%s\n" % word)
+
+        Path(test_tokens_folder).mkdir(parents=True, exist_ok=True)
+        shutil.copy('process/temper.txt', test_tokens_folder + '/' + testname)
 
 if __name__ == '__main__':
     main()
