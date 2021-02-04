@@ -161,8 +161,8 @@ B) Temp:
 
 - sample_flaky/ : Includes multiple text files that are separated line by line; each line has a token grabbed and processed from a respective
 test case file.
-  
-  C) Output:
+
+C) Output:
 
 - features_raw.csv: Includes raw list of all tokens with their frequencies. It is not yet decided how effective they are in flakiness.
 
@@ -185,8 +185,12 @@ Please refer to
 [Delta iPython](/process/delta.ipynb) file to see the explanations about the project's delta. Here is the summary:
 #### A) about Process:
 
+
+### 📊 Levenstein Distance: 
+
 #### B) about Data:
 
+###  📊 Levenstein Distance: 
 
 ## Extra:
 #### A) What should I do if installing pyCurl failed?

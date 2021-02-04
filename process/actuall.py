@@ -54,7 +54,6 @@ def main():
 
 def ez_mode():
     print('😳 Ease (EZ) mode skips heavy processes and simplifies steps for quick validation ...')
-    exit('temporarily off -- comment this')
     shutil.rmtree(temp_path)
     # copy the samples and re-runs
     # shutil.copytree(original_repo_path + '/deflaker/reruns', temp_path + '/reruns')
