@@ -34,6 +34,7 @@ def main():
 
     # Step 1 : clone target directories
     print('Step 1 : Preparation -- Please choose the mode you want to run (Easy (e or ez)| Heavy (v)) ')
+    print('* easy takes ± 2-3 mins / heavy takes ± 10-15 mins')
     mode = str(input('Please choose the mode? [Easy Mode (e or ez) | Heavy Mode (h or hv)]'))
     if mode.startswith('h'):
         heavy_mode()
