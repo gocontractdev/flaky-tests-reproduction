@@ -5,6 +5,7 @@ import os
 import sys
 import re
 import shutil
+import subprocess
 
 # base paths
 # Warning: Do not move any files the whole thing breaks apart
@@ -13,6 +14,8 @@ data_path = 'data'
 input_path = data_path + '/input'
 temp_path = data_path + '/temp'
 original_repo_path = input_path + '/original_repo/msr4flakiness'
+test_folder = temp_path + "/test_files"
+test_cases_folder = temp_path + "/test_cases"
 
 
 def main():
@@ -45,7 +48,7 @@ def main():
 
 def ez_mode():
     print('😳 Ease (EZ) mode skips heavy processes and simplifies steps for quick validation ...')
-
+    exit('222')
     shutil.rmtree(temp_path)
     # copy the samples and re-runs
     # shutil.copytree(original_repo_path + '/deflaker/reruns', temp_path + '/reruns')
@@ -56,8 +59,9 @@ def ez_mode():
 def heavy_mode():
     print('⚠️ You have chosen heavy mode -- This might take a while...')
 
-    shutil.rmtree(temp_path)
-    mine_all_repos()
+    #shutil.rmtree(temp_path)
+    #mine_all_repos()  # this makes test cases
+    separate_all_tests()
 
 
 # ❌ this code is from original repository -> but the code was broken so I had to fix it
@@ -178,16 +182,51 @@ def mine_all_repos():
             else:
                 path_to_testfile = result.split("\n")[0]
 
-            test_folder = "../" + temp_path + "/test_files"
-
             from pathlib import Path
-            Path(test_folder).mkdir(parents=True, exist_ok=True)
+            Path("../" + test_folder).mkdir(parents=True, exist_ok=True)
             print(testfile)
-            shutil.copy(path_to_testfile, test_folder + '/' + testcase)
+            shutil.copy(path_to_testfile, "../" + test_folder + '/' + testcase)
 
         os.chdir(basedir)
         if (os.path.exists(usage_dir)):
             shutil.rmtree(usage_dir, ignore_errors=True)
+
+
+def separate_all_tests():
+    print('⛴ This part is handled virtually through docker -- if it is running already it will fail...')
+    filenames = [f for f in glob.glob(test_folder + "/*", recursive=False)]
+    os.system("cd process; docker stop my_little_alpine")
+    os.system("cd process; docker container rm my_little_alpine")
+    os.system("cd process; docker-compose build")
+    os.system("cd process; docker-compose up -d")
+
+    # build the main jar file
+    runnable_command = "java -jar " + '/utilities/vis_method/build/libs/vis_method.jar ' + filename + " " + testname
+    os.system("cd process; docker container exec -it my_little_alpine " + runnable_command + ";")
+
+    for filename in filenames:
+        parts = filename.split(".")
+        testname = parts[len(parts) - 1]
+        runnable_command = "java -jar " + '/utilities/vis_method/build/libs/vis_method.jar ' + filename + " "+ testname
+        os.system("cd process; docker container exec -it my_little_alpine " + runnable_command + ";")
+
+        exit('1111')
+        # myprocess = subprocess.Popen(
+        #    ['java', '-jar', original_repo_path + '/utils/vis_method/build/libs/vis_method.jar', filename, testname],
+        #    stdout=subprocess.PIPE,
+        #    stderr=subprocess.STDOUT)
+        # mbody, stderr = myprocess.communicate()
+
+        mbody = ''
+        parseError = b'com.github.javaparser.ParseProblemException' in mbody
+        # create a file with the test case
+        print('ss')
+        if not parseError and len(mbody) > 400:
+            with open(test_cases_folder + os.path.basename(filename), "wt+") as testfile:
+                print(mbody.decode("utf-8"))
+                testfile.write(mbody.decode("utf-8"))
+        else:
+            print(os.path.basename(filename))
 
 
 if __name__ == '__main__':

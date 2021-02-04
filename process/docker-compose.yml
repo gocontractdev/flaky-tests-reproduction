@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  alpine:
+    build: .
+    container_name: 'my_little_alpine'
+    ports:
+      - "81:81"
+    volumes:
+      - ./../data/temp:/temp
+      - ./../data/input/original_repo/msr4flakiness/utils:/utilities
+    command: tail -F /temp

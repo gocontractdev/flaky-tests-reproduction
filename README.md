@@ -52,10 +52,7 @@ Software:
 
 - Python 3.8 or above (use Conda)
 
-- Docker (already running)
-  
-- Extra: Open Source Machine Learning Software WEKA (used for algorithms: : Random Forest, Decision Tree, Naive Bayes,
-Support Vector Machine, and Nearest Neighbour)
+- Docker (already running) * ⛴ Docker is only needed if you use the heavy mode
 
 ## Process:
 The general re-creation work done by us goes through the following steps:
@@ -159,6 +156,9 @@ Please refer to
 ```shell
 # if pycurl failed for you on MAC -- couldn't find any other solution 
 xcode-select --install
+
+# quick login to alpein (it is only used for builds and running java) 
+docker container exec -it my_little_alpine bin/bash
 
 # You can activate the environment if you want but the initialization does that Automatically
 source ez_env/bin/activate
