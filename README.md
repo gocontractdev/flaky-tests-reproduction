@@ -1,7 +1,8 @@
 # 🧪 Flaky Tests Vocabulary: The Reproduction Efforts
-
+"
 This is a reproduction efforts to re-create the original paper: "What is the Vocabulary of Flaky Tests?" as part of the 
-study program "Mining Software Repositories (MSR 2020-21)" provided by SoftLang Team at University of Koblenz-Landau.
+study program "Mining Software Repositories (MSR 2020-21)" provided by SoftLang Team at University of Koblenz-Landau. 
+" - Amir Dashti
 
 ## MetaData:
 This repository describes the recreation of 2020 Paper "What is the Vocabulary of Flaky Tests?" written by: Gustavo Pinto and
@@ -103,6 +104,12 @@ zsh ./process/initialization.sh
 
  ✅  How to Validate the works?
 --------------------
+If everything works properly, the output produced by the code 'features_frequency.csv' will include the
+top most related vocabulary to flakiness of the tests. You can quickly verify this by running coe in the easy (e) mode.
+
+Refering to the paper: "we noted that
+job, action, and services are commonly associated with flaky tests.".
+So, the output here should be also similar.
 
 
 
