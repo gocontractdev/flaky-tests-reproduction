@@ -139,13 +139,44 @@ Following is the general description of data types along with the schema overvie
 > 
 >  <sup>Note: This part is adopted (in simple words) from the paper. </sup>
 
-The structure of our data:
+The structure of our data: (To see sample parts of data refer to: [Delta iPython](/process/delta.ipynb))
 
 A) Input:
 
+- historical_projects_copied.csv: A csv file used as an input in original paper. It includes list of github projects that have been monitored.
+
+- histoircal_rerun_flaky_tests.csv: A csv file used as an initial input that includes detailed list of test files and test methods that are known as being flaky.
+
+- list-flaky.csv: A csv file very similar to histoircal_rerun_flaky_tests.csv but it also includes SHA and version of flakiness since they might have change or fixed.
+
+- ez/ : This directory includes a copy of the mentioned files for representation purposes. It is not used in real processes.
+
 B) Temp:
 
-C) Output:
+- test_files/ : Includes multiple text files each file including the full text from a specific test file.
+  File name represents the test file name and its category.
+
+- test_cases/ : Running methods jar file will separate test files to test cases. This directory includes multiple text files; 
+ each file includes text of a specific test known to be flaky.
+
+- sample_flaky/ : Includes multiple text files that are separated line by line; each line has a token grabbed and processed from a respective
+test case file.
+  
+  C) Output:
+
+- features_raw.csv: Includes raw list of all tokens with their frequencies. It is not yet decided how effective they are in flakiness.
+
+- features_frequency.csv: It includes top filtered tokens that associate with flaky tests and make the vocabulary of flaky tests.
+
+- total_process_original.txt: This file includes the whole code strings of original repository. -- Used to calculated Levenshtein distance.
+  
+- total_process_rework.txt: This file includes the whole code strings of re-production repository. -- Used to calculated Levenshtein distance.
+
+- total_data_original.txt: This file includes the whole data string of rhe original repository. -- Used to calculated Levenshtein distance.
+  
+- total_data_rework.txt: This file includes the whole data string of rhe re-production repository. -- Used to calculated Levenshtein distance.
+
+- ez/ : This directory includes a copy of the mentioned files for representation purposes. It is not used in real processes.
 
 
 ## 🔥 Delta:
