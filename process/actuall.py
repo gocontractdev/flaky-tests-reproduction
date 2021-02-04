@@ -256,5 +256,6 @@ def post_run_gen_tokens():
         Path(test_tokens_folder).mkdir(parents=True, exist_ok=True)
         shutil.copy('process/temper.txt', test_tokens_folder + '/' + testname)
 
+
 if __name__ == '__main__':
     main()
