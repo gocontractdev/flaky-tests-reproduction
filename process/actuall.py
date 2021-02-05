@@ -13,10 +13,12 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 data_path = 'data'
 input_path = data_path + '/input'
 temp_path = data_path + '/temp'
+output_path = data_path + '/output'
 original_repo_path = input_path + '/original_repo/msr4flakiness'
 test_folder = temp_path + "/test_files"
 test_cases_folder = temp_path + "/test_cases"
 test_tokens_folder = temp_path + "/samples_flaky/test_tokens"
+process_path = './process'
 
 
 def main():
@@ -29,6 +31,17 @@ def main():
                 input_path + '/historical_rerun_flaky_tests.csv')
     shutil.copy(original_repo_path + '/idflakies/list-flaky.csv',
                 input_path + '/list-flaky.csv')
+
+    print('Making full dump 🕰🕰🕰🕰 This is super heavy please wait... The process is RAM intensive...')
+    # total_process_rework - 1/4
+    total_content_dump(output_path + '/total_process_rework.txt')
+    # total_data_rework - 2/4
+    total_content_dump(output_path + '/total_process_rework.txt')
+    # total_original_process - 3/4
+    total_content_dump(output_path + '/total_process_rework.txt')
+    # total_original_process - 4/4
+    total_content_dump(output_path + '/total_process_rework.txt')
+    exit('71')
 
     print('input is now populated ✔✔✔')
 
@@ -53,6 +66,7 @@ def main():
     # Step 4:
     print('🔥 Process is completed. Refer to Delta and Process jupyter files for details')
 
+
 def ez_mode():
     print('😳 Ease (EZ) mode skips heavy processes and simplifies steps for quick validation ...')
     shutil.rmtree(temp_path)
@@ -69,6 +83,7 @@ def heavy_mode():
     mine_all_repos()  # this makes test cases
     separate_all_tests()
     post_run_gen_tokens()
+
 
 # ❌ this code is from original repository -> but the code was broken so I had to fix it
 def fixed_find_potential_features():
@@ -214,7 +229,7 @@ def separate_all_tests():
         testname = parts[len(parts) - 1]
 
         tempest_filename = filename.split('/', 1)[1]
-        runnable_command = " java -jar " + '/utilities/vis_method/build/libs/vis_method.jar ' +\
+        runnable_command = " java -jar " + '/utilities/vis_method/build/libs/vis_method.jar ' + \
                            tempest_filename + " " + testname
         os.system("cd process; docker container exec -it my_little_alpine bash -c '" +
                   runnable_command + "'" +
@@ -222,6 +237,7 @@ def separate_all_tests():
 
         Path(test_cases_folder).mkdir(parents=True, exist_ok=True)
         shutil.copy('process/tempest.txt', test_cases_folder + '/' + testname)
+
 
 def post_run_gen_tokens():
     # build vid_ids using gradle
@@ -241,8 +257,8 @@ def post_run_gen_tokens():
         testname = parts[len(parts) - 1]
 
         # does not produce what is expected
-        #runnable_command = " java -jar " + '/utilities/vis_ids/build/libs/vis_ids.jar/' + filename
-        #os.system("cd process; docker container exec -it my_little_alpine bash -c '" + runnable_command + "'")
+        # runnable_command = " java -jar " + '/utilities/vis_ids/build/libs/vis_ids.jar/' + filename
+        # os.system("cd process; docker container exec -it my_little_alpine bash -c '" + runnable_command + "'")
         data = ''
         with open(filename, 'r') as file:
             data = file.read().replace('\n', '')
@@ -255,6 +271,21 @@ def post_run_gen_tokens():
 
         Path(test_tokens_folder).mkdir(parents=True, exist_ok=True)
         shutil.copy('process/temper.txt', test_tokens_folder + '/' + testname)
+
+
+def total_content_dump(dump_place):
+    try:
+        os.remove(dump_place)
+    except OSError:
+        pass
+    result = [os.path.join(dp, f) for dp, dn, filenames in os.walk(process_path) for f in filenames if True]
+    for key in result:
+        file = open(key, mode='r')
+        tempest = file.read()
+        file.close()
+        file_object = open(dump_place, 'a')
+        file_object.write(tempest)
+        file_object.close()
 
 
 if __name__ == '__main__':

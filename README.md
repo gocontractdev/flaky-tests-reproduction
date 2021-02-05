@@ -184,11 +184,31 @@ C) Output:
 Please refer to
 [Delta iPython](/process/delta.ipynb) file to see the explanations about the project's delta. Here is the summary:
 #### A) about Process:
+The methodology used in original and recreation work are same however due to issues in the code or un-explained manaul parts; we had to employ remedees or alternatives in the implementation and exection of the proccess.
+The alternatives we had to adopt include:
+
+1- Re-organization: The data and code are poorly mixed in the original work. The first part of the 'actuall.py' focuses on moving file to their correct directory.
+
+2- Fixing python codes that do not run: There are parts of the code that need minor changes to work. I have used the original work and deep-linked them using __importy__() method.
+In cases that it was not possible, I have made a custom method that includes the fixed version of original code.
+
+3- Unexplained gradle build and java runtimes: Parts that use the java jdk and gradle are un-explained in the original work. It seems like the authors have ran them manually.
+Since running manually is difficult for me. I have made a DockerFile that starts and Alpine injected with Java and Gradle to handle the builds and making output results. This change means you need both Python environment and Docker to run this project.
 
 
 ### 📊 Levenstein Distance: 
 
 #### B) about Data:
+Flow of data and what is being generated are almost identical to each other since same approaches have been adopted.
+We can divide the data into 3 sections:
+
+1- Input: Input data is completely identical; we use exact same inputs.
+
+2- Temp: Temporary data created by us resembles the original work. We only missed the re-runs folder since developing a docker
+that runs projects multiple times took too much effort and was out of scope of me doing it alone.
+
+3- Output: Uses similar format, naming and outputs. We have extra output that have been used for calculation of distance between original work and recreation.
+
 
 ###  📊 Levenstein Distance: 
 
