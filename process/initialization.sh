@@ -1,5 +1,5 @@
 # This script will only work if you run it from the main not within the process folder
-
+# export PATH="/usr/local/anaconda3/bin:\$PATH"
 # reactivate the env (if forgotten)
 deactivate
 # create environment:

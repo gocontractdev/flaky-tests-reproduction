@@ -80,6 +80,9 @@ everything necessary for this project. From there follow the steps console asks 
 
 
 ```shell
+# if necessart export the path of anaconda
+export PATH="/usr/local/anaconda3/bin:\$PATH"
+
 # to initialize and run everything
 zsh ./process/initialization.sh
 
@@ -246,3 +249,11 @@ It fails in installation of 'pyCurl' depending on you O.S. and your SSL settings
 
 2- Some python files do not actually work. I have modified them to achieve the goals; further on this is explained in 
 [Process iPython](/process/process.ipynb).
+
+3- For me, without anaconda path it does not work; Make it somehow that zsh and anaconda work fine:
+
+![Alt text](doc/diagrams/anaconda.png?raw=true "  ")
+
+4- If you stop process after making folder and before cloning it just skips it becasue it only checks the folder; generally do not stop script it fails completely.
+
+![Alt text](doc/diagrams/whenempty-cloning-ignored.png?raw=true "   ")
