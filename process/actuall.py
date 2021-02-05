@@ -32,17 +32,6 @@ def main():
     shutil.copy(original_repo_path + '/idflakies/list-flaky.csv',
                 input_path + '/list-flaky.csv')
 
-    print('Making full dump 🕰🕰🕰🕰 This is super heavy please wait... The process is RAM intensive...')
-    # total_process_rework - 1/4
-    total_content_dump(output_path + '/total_process_rework.txt')
-    # total_data_rework - 2/4
-    total_content_dump(output_path + '/total_process_rework.txt')
-    # total_original_process - 3/4
-    total_content_dump(output_path + '/total_process_rework.txt')
-    # total_original_process - 4/4
-    total_content_dump(output_path + '/total_process_rework.txt')
-    exit('71')
-
     print('input is now populated ✔✔✔')
 
     # Step 1 : clone target directories
@@ -65,7 +54,17 @@ def main():
 
     # Step 4:
     print('🔥 Process is completed. Refer to Delta and Process jupyter files for details')
+    print('Making full dump 🕰🕰🕰🕰 This is super heavy please wait... The process is I/O intensive...')
+    print('total_process_rework - 1/4')
+    total_content_dump(output_path + '/total_process_rework.txt', process_path)
+    print('total_process_original - 2/4')
+    total_content_dump(output_path + '/total_process_original.txt', original_repo_path, True)
+    print('total_data_rework - 3/4')
+    total_content_dump(output_path + '/total_data_rework.txt', process_path)
+    print('total_data_original - 4/4')
+    total_content_dump_rev(output_path + '/total_data_original.txt', original_repo_path)
 
+    print('It is done. Please refer to Jupyter files: Delta and Process')
 
 def ez_mode():
     print('😳 Ease (EZ) mode skips heavy processes and simplifies steps for quick validation ...')
@@ -273,16 +272,58 @@ def post_run_gen_tokens():
         shutil.copy('process/temper.txt', test_tokens_folder + '/' + testname)
 
 
-def total_content_dump(dump_place):
+def total_content_dump_rev(dump_place, scan):
     try:
         os.remove(dump_place)
     except OSError:
         pass
-    result = [os.path.join(dp, f) for dp, dn, filenames in os.walk(process_path) for f in filenames if True]
+    result = [os.path.join(dp, f) for dp, dn, filenames in os.walk(scan) for f in filenames if
+              os.path.splitext(f)[1] == '.py' or os.path.splitext(f)[1] == '.java']
     for key in result:
-        file = open(key, mode='r')
-        tempest = file.read()
-        file.close()
+        try:
+            file = open(key, mode='r')
+            tempest = file.read()
+            file.close()
+        except UnicodeDecodeError:
+            tempest = '-----'
+
+        file_object = open(dump_place, 'a')
+        file_object.write(tempest)
+        file_object.close()
+
+
+def total_content_dump(dump_place, scan, is_original=False):
+    if is_original:
+        try:
+            os.remove(dump_place)
+        except OSError:
+            pass
+        result = [os.path.join(dp, f) for dp, dn, filenames in os.walk(scan) for f in filenames if
+                  os.path.splitext(f)[1] != '.py' and os.path.splitext(f)[1] != '.java']
+        for key in result:
+            try:
+                file = open(key, mode='r')
+                tempest = file.read()
+                file.close()
+            except UnicodeDecodeError:
+                tempest = '-----'
+
+            file_object = open(dump_place, 'a')
+            file_object.write(tempest)
+            file_object.close()
+
+    try:
+        os.remove(dump_place)
+    except OSError:
+        pass
+    result = [os.path.join(dp, f) for dp, dn, filenames in os.walk(scan) for f in filenames if True]
+    for key in result:
+        try:
+            file = open(key, mode='r')
+            tempest = file.read()
+            file.close()
+        except UnicodeDecodeError:
+            tempest = '-----'
         file_object = open(dump_place, 'a')
         file_object.write(tempest)
         file_object.close()
