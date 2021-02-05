@@ -2,6 +2,13 @@
 
 # reactivate the env (if forgotten)
 deactivate
+# create environment:
+if [ -d "venv/ez_env/" ]; then
+  echo 'env exists'
+else
+  python -m venv venv/ez_env
+fi
+
 source venv/ez_env/bin/activate
 # pip install --upgrade pip
 pip --version
