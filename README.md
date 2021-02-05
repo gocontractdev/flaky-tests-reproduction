@@ -80,9 +80,6 @@ everything necessary for this project. From there follow the steps console asks 
 
 
 ```shell
-# if necessart export the path of anaconda
-export PATH="/usr/local/anaconda3/bin:\$PATH"
-
 # to initialize and run everything
 zsh ./process/initialization.sh
 
@@ -104,6 +101,10 @@ zsh ./process/initialization.sh
 
 - Important 2: Refer to the extra section if something did not work.
 
+- Important 3: I have made a code to make env on the fly but it fails sometimes; easisest way is just to use automatic tool
+if you have PyCharm or InteliJ products:
+  
+![Alt text](doc/diagrams/env.png?raw=true "  ")
 
  ✅  How to Validate the works?
 --------------------
