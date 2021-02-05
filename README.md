@@ -181,8 +181,8 @@ C) Output:
 
 ## 🔥 Delta:
 
-Please refer to
-[Delta iPython](/process/delta.ipynb) file to see the explanations about the project's delta. Here is the summary:
+Please refer to my Jupyter
+[Delta iPython](https://nbviewer.jupyter.org/github/gocontractdev/flaky-tests-reproduction/blob/main/process/delta.ipynb) file to see the explanations about the project's delta. Here is the summary:
 #### A) about Process:
 The methodology used in original and recreation work are same however due to issues in the code or un-explained manaul parts; we had to employ remedees or alternatives in the implementation and exection of the proccess.
 The alternatives we had to adopt include:
@@ -196,7 +196,11 @@ In cases that it was not possible, I have made a custom method that includes the
 Since running manually is difficult for me. I have made a DockerFile that starts and Alpine injected with Java and Gradle to handle the builds and making output results. This change means you need both Python environment and Docker to run this project.
 
 
-### 📊 Levenstein Distance: 
+### 📊 Mathematical Distances: 
+
+Hamming Distance [noamlized]: 1.6694457422028464e-06
+Jacard dis-similarity 4.42110833769081e-05
+Sorensen-Dice:  8.841825768685356e-05
 
 #### B) about Data:
 Flow of data and what is being generated are almost identical to each other since same approaches have been adopted.
@@ -210,7 +214,11 @@ that runs projects multiple times took too much effort and was out of scope of m
 3- Output: Uses similar format, naming and outputs. We have extra output that have been used for calculation of distance between original work and recreation.
 
 
-###  📊 Levenstein Distance: 
+###  📊 Mathematical Distances:
+
+Hamming Distance [noamlized]: 0.055623301256152224
+Jacard dis-similarity 0.12280896383403594
+Sorensen-Dice:  0.2187530876395613
 
 ## Extra:
 #### A) What should I do if installing pyCurl failed?
