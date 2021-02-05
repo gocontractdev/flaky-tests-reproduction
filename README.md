@@ -227,6 +227,9 @@ Sorensen-Dice:  0.2187530876395613
 # if pycurl failed for you on MAC -- couldn't find any other solution 
 xcode-select --install
 
+# if necessart export the path of anaconda
+export PATH="/usr/local/anaconda3/bin:$PATH"
+
 # quick login to alpein (it is only used for builds and running java) 
 docker container exec -it my_little_alpine bin/bash
 
