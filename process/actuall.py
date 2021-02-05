@@ -266,7 +266,7 @@ def post_run_gen_tokens():
         words = data.split(" ")
         with open('process/temper.txt', 'w') as f:
             for word in words:
-                print(word)
+                #print(word)
                 f.write("%s\n" % word)
 
         Path(test_tokens_folder).mkdir(parents=True, exist_ok=True)
