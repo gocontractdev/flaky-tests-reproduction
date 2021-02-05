@@ -66,6 +66,7 @@ def main():
 
     print('It is done. Please refer to Jupyter files: Delta and Process')
 
+
 def ez_mode():
     print('😳 Ease (EZ) mode skips heavy processes and simplifies steps for quick validation ...')
     shutil.rmtree(temp_path)

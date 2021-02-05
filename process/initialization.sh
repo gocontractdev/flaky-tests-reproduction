@@ -7,8 +7,8 @@ source venv/ez_env/bin/activate
 pip --version
 echo 'Installing requirements'
 pip install -r requirements.txt
+pip install "textdistance[extras]" # for speed performance
 echo 'DONE'
-
 
 # clone the directory or skip
 

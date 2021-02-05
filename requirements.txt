@@ -65,3 +65,4 @@ six
 javalang
 pandas
 python-Levenshtein
+textdistance
