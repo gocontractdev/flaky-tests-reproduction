@@ -37,6 +37,17 @@ def main():
     # Step 1 : clone target directories
     print('Step 1 : Preparation -- Please choose the mode you want to run (Easy (e or ez)| Heavy (v)) ')
     print('* easy takes ± 2-3 mins / heavy takes ± 10-15 mins')
+
+    # @OVERWRITE try simulate when file is ran through shell
+    try:
+        if len(sys.argv) >= 2:
+            print('Shell chose: ' + sys.argv[1] + ' Please wait')
+            simulate_mode()
+            return
+    except Exception:
+        print('Process failed.. Please try again')
+        return
+
     mode = str(input('Please choose the mode? [Easy Mode (e or ez) | Heavy Mode (h or hv)]'))
     if mode.startswith('h'):
         heavy_mode()
@@ -66,6 +77,9 @@ def main():
 
     print('It is done. Please refer to Jupyter files: Delta and Process')
 
+def simulate_mode():
+    print('🖥 Simulate (SIMULATE) mode is a heavy I/O Process ...')
+    shutil.copytree(original_repo_path + '/deflaker/reruns', temp_path + '/reruns')
 
 def ez_mode():
     print('😳 Ease (EZ) mode skips heavy processes and simplifies steps for quick validation ...')
