@@ -78,8 +78,55 @@ def main():
     print('It is done. Please refer to Jupyter files: Delta and Process')
 
 def simulate_mode():
-    print('🖥 Simulate (SIMULATE) mode is a heavy I/O Process ...')
+    print('🖥 Simulate (SIMULATE) mode is a heavy I/O Process (Time Complexity of o3) ...')
     shutil.copytree(original_repo_path + '/deflaker/reruns', temp_path + '/reruns')
+
+    if os.path.exists(input_path + "/all_reruns.csv"):
+        os.remove(input_path + "/all_reruns.csv")
+
+    reruns_path = temp_path + '/reruns'
+    contents = os.listdir(reruns_path)
+    all_reruns = {}
+    for content in contents:
+        if os.path.isdir(content):
+            # get all re-run logs for each directory and summarize them
+            for file in glob.glob(reruns_path + "/run*.log"):
+                real_file = open(file, 'r')
+                lines = real_file.readlines()
+                for line in lines:
+                    single_execution_details = line.split(', ')
+                    if (single_execution_details.count() != 3):
+                        continue
+                    else:
+                        unique_key = single_execution_details[0] + '_' + single_execution_details[1]
+                        # update tracked reruns
+                        if unique_key in all_reruns:
+                            # if we know it is flaky ignore it
+                            if all_reruns[unique_key]['flaky']:
+                                continue
+
+                            # if we do not know do the futther checks
+                            all_reruns[unique_key]['frequency'] = all_reruns[unique_key]['frequency'] + 1
+                            # it shows flaky behavior
+                            if all_reruns[unique_key]['first_result'] != single_execution_details[2]:
+                                all_reruns[unique_key]['flaky'] = True
+                        # add it to tracked reruns
+                        else:
+                            all_reruns[unique_key] = {}
+                            all_reruns[unique_key]['dir'] = single_execution_details[0]
+                            all_reruns[unique_key]['test'] = single_execution_details[1]
+                            all_reruns[unique_key]['first_result'] = single_execution_details[2]
+                            all_reruns[unique_key]['frequency'] = 1
+                            all_reruns[unique_key]['flaky'] = False
+
+    # report all reruns
+    print(all_reruns)
+
+    with open(input_path + '/all_reruns.csv', 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["directory", "test", "first_result", "frequency", "flaky"])
+        for e in all_reruns:
+            writer.writerow([e['dir'], e['test'], e['first_result'], e['frequency'], e['flaky']])
 
 def ez_mode():
     print('😳 Ease (EZ) mode skips heavy processes and simplifies steps for quick validation ...')
