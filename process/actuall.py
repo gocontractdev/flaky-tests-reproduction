@@ -44,7 +44,8 @@ def main():
             print('Shell chose: ' + sys.argv[1] + ' Please wait')
             simulate_mode()
             return
-    except Exception:
+    except Exception as e:
+        print('⚠ ️' + str(e))
         print('Process failed.. Please try again')
         return
 
@@ -88,14 +89,18 @@ def simulate_mode():
     contents = os.listdir(reruns_path)
     all_reruns = {}
     for content in contents:
-        if os.path.isdir(content):
+        content_directory = reruns_path + '/' + content
+        if os.path.isdir(content_directory):
             # get all re-run logs for each directory and summarize them
-            for file in glob.glob(reruns_path + "/run*.log"):
+            for file in glob.glob(content_directory + "/run*.log"):
+                print(file)
                 real_file = open(file, 'r')
                 lines = real_file.readlines()
                 for line in lines:
+                    line = line.replace('\n', '')
+                    line = line.replace('\r', '')
                     single_execution_details = line.split(', ')
-                    if (single_execution_details.count() != 3):
+                    if (len(single_execution_details) != 3):
                         continue
                     else:
                         unique_key = single_execution_details[0] + '_' + single_execution_details[1]
@@ -120,13 +125,12 @@ def simulate_mode():
                             all_reruns[unique_key]['flaky'] = False
 
     # report all reruns
-    print(all_reruns)
-
-    with open(input_path + '/all_reruns.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(["directory", "test", "first_result", "frequency", "flaky"])
-        for e in all_reruns:
-            writer.writerow([e['dir'], e['test'], e['first_result'], e['frequency'], e['flaky']])
+    csv_columns = ['dir', 'test', 'first_result', 'frequency', 'flaky']
+    with open(input_path + '/all_reruns.csv', 'w') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+        writer.writeheader()
+        for data in all_reruns:
+            writer.writerow(all_reruns[data])
 
 def ez_mode():
     print('😳 Ease (EZ) mode skips heavy processes and simplifies steps for quick validation ...')
